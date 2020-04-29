@@ -70,10 +70,6 @@ public class Person implements Comparable<Person> {
         if (result != 0) {
             return result;
         }
-        result = name.compareTo(p.name);
-        if (result != 0) {
-            return result;
-        }
         result = age - p.getAge();
         return result;
     }
