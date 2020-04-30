@@ -3,8 +3,8 @@ package ru.enikhov.lesson02.task3;
 /**
  * Класс ArrayPerson со свойствами <b>person(ассив объектов)</b>, <b>umElems(размерность массива)</b>.
  *
- * @version 1.0
  * @author Енихов Владислав
+ * @version 1.0
  */
 
 class ArrayPerson {
@@ -18,9 +18,10 @@ class ArrayPerson {
 
     /**
      * Процедура заполнения массива
+     *
      * @param name - имя субъекта
-     * @param age -  возраст субъекта
-     * @param sex -  пол субъекта
+     * @param age  -  возраст субъекта
+     * @param sex  -  пол субъекта
      */
     public void insert(String name, int age, String sex) {
         person[numElems] = new Person(name, age, sex);
@@ -52,6 +53,7 @@ class ArrayPerson {
 
     /**
      * Процедура быстрая сортировка
+     *
      * @param leftBorder
      * @param rightBorder
      */
@@ -90,7 +92,7 @@ class ArrayPerson {
 public class SortApp {
     public static void main(String[] args) {
         int maxAge = 100;   // макимальный возраст
-        int maxName = 19;   // размерность enum FirstName
+        int maxName = FirstName.values().length - 1;   // размерность enum FirstName
         int numMax = 10000; // размер массивов
         ArrayPerson personArray = new ArrayPerson(numMax); // массив для сортировки вставками
         ArrayPerson personArraySecond = new ArrayPerson(numMax); // массив для быстрой сортировки
@@ -126,6 +128,7 @@ public class SortApp {
     /**
      * Процедура генерирует либо случайный возраст либо случайное имя (из перечисления FirstName),
      * в зависимости от параметра max.
+     *
      * @param max - максимальный возраст или размерность перечисления
      * @return возвращает случайный возраст или порядковый номер константы перечисления
      */
@@ -135,6 +138,7 @@ public class SortApp {
 
     /**
      * Процедура возвращает имя из перечисления FirstName по индексу.
+     *
      * @param r - порядковый номер константы перечисления
      * @return возвращает имя субъекта
      */
@@ -144,6 +148,7 @@ public class SortApp {
 
     /**
      * Процедура возвращает имя из перечисления FirstName по индексу.
+     *
      * @param r - порядковый номер константы перечисления
      * @return возвращает пол субъекта
      */
