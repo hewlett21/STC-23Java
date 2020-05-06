@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class MathBox<T> extends ObjectBox {
+public class MathBox extends ObjectBox<Number> {
 
     /**
      * Конструктор - создание нового объекта с определенными значениями
@@ -13,18 +13,17 @@ public class MathBox<T> extends ObjectBox {
      * @param arrNum - массив объектов типа Number
      */
     public MathBox(Number[] arrNum) {
-        set = new HashSet<>(Arrays.asList(arrNum));
+        setHash = new HashSet<Number>(Arrays.asList(arrNum));
     }
 
     /**
      * Метод summator - сумирует значения элементов коллекции
      *
-     * @param numSet - коллекция HashSet<T extends Number>
      * @return - возвращает сумму элментов
      */
-    public <T extends Number> Double summator(Set<T> numSet) {
+    public Double summator() {
         Double result = 0.0;
-        for (Number num : numSet) {
+        for (Number num : setHash) {
             result += num.doubleValue();
         }
         return result;
@@ -33,25 +32,25 @@ public class MathBox<T> extends ObjectBox {
     /**
      * Метод splitter - деление всех хранящихся в объекте элементов на делитель
      *
-     * @param numSet - коллекция HashSet<T extends Number>
-     * @param del    - делитель
+     * @param del - делитель
      */
-
-    public <T extends Number> void splitter(Set<T> numSet, int del) {
-        Set<T> copySet = new HashSet<>(set);
-        for (Iterator<T> it = copySet.iterator(); it.hasNext(); ) {
-            T current = it.next();
+    public void splitter(int del) {
+        Set<Number> copySet = new HashSet<>();
+        for (Iterator<Number> it = setHash.iterator(); it.hasNext(); ) {
+            Number current = it.next();
             Double newValue = current.doubleValue() / del;
             System.out.println("Current value: [" + current + "] : New value: [" + newValue + "]");
-            numSet.remove(current);
-            numSet.add((T) newValue);
+            copySet.add((Number) newValue);
         }
+        setHash.clear();
+        setHash.addAll(copySet);
     }
+
 
     @Override
     public String toString() {
         return "MathBox{" +
-                "set=" + set +
+                "set=" + setHash +
                 '}';
     }
 

@@ -4,16 +4,16 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class ObjectBox<Object> {
-    Set<Object> set = new HashSet<>();
+public class ObjectBox<T> {
+    Set<T> setHash = new HashSet<>();
 
     /**
      * Метод addObject - добавляет элемент в коллекцию
      *
      * @param o - элемент типа Object
      */
-    public void addObject(Object o) {
-        set.add(o);
+    public void addObject(T o) {
+        setHash.add(o);
     }
 
     /**
@@ -23,9 +23,9 @@ public class ObjectBox<Object> {
      * @param o - элемент типа Object
      * @return - возвращаем объект
      */
-    public Object deleteObject(Object o) {
-        if (set.contains(o)) {
-            set.remove(o);
+    public Object deleteObject(T o) {
+        if (setHash.contains(o)) {
+            setHash.remove(o);
             return o;
         } else {
             return (Object) "не найдено";
@@ -36,7 +36,7 @@ public class ObjectBox<Object> {
      * Метод dump - выводит содержимое коллекции.
      */
     public void dump() {
-        Iterator<Object> iterator = set.iterator();
+        Iterator<T> iterator = setHash.iterator();
         System.out.print("ObjectBox{set=[");
         while (iterator.hasNext()) {
             System.out.print(iterator.next().toString());

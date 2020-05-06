@@ -48,12 +48,12 @@ public class AppBox {
         numbers[8] = 701L;
         numbers[9] = 27d;
 
-        MathBox<Number> mathBox = new MathBox<>(numbers);
+        MathBox mathBox = new MathBox(numbers);
         System.out.println(mathBox.toString());
-        System.out.println(mathBox.summator(mathBox.set));
+        System.out.println("Сумма всех элементов: " + mathBox.summator());
 
         System.out.println("====================");
-        mathBox.splitter(mathBox.set, 3);
+        mathBox.splitter(3);
         System.out.println(mathBox.toString());
     }
 }
