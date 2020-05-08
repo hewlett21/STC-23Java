@@ -62,7 +62,7 @@ public class PetsCardFile<K, V> {
      * @param -- map - каталог cardFileMap
      */
 
-// я знаю почему именно так :
+// я знаю почему именно так (тут у меня вопросы есть) :
 // public <K, V extends Comparable<? super V>> void displaySort(Map<K, V> map)
 // нагуглил. Без передачи в параметре мапы, не работает почему то.
     public <K, V extends Comparable<? super V>> void displaySort(Map<K, V> map) {
