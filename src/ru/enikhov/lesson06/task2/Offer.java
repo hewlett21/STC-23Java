@@ -30,6 +30,10 @@ public class Offer extends Word {
         this.max = max;
     }
 
+    /** Метод возвращает откуда брать слово, из массива или генерировать.
+     *
+      * @return
+     */
     public String getWordFromArray() {
         return AppFileGen.checkProbability();
     }
@@ -44,12 +48,9 @@ public class Offer extends Word {
      */
     @Override
     public String genString() {
-        AppFileGen afg = new AppFileGen();
         String out = "";
         String newString = "";
         String srcWord;
-        int oldLength = 0;
-        int cntSimbol = 0;
         int cntWords = rndSize(min, max);
         for (int i = 0; i < cntWords; i++) {
             srcWord = getWordFromArray();
