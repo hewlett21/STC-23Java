@@ -9,21 +9,22 @@ import java.util.List;
 
 public class AppReflection {
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        String file = "data.bin";
         List<String> list = Arrays.asList("яблоко", "груша", "апельсин");
         Person tom = new Person("Tom", 35, 1.65, true, list);
         System.out.print("Исходный объект:");
         System.out.println(tom);
-        saveObj(tom);
+        serialize(tom, file);
         System.out.println("Create new object:");
-        createObj();
+        deSerialize(file);
     }
 
     /** Метод заполняет поля нового объекта из файла
      *
      * @param newObj
      */
-    private static void fieldSet(Object newObj) {
-        try (FileInputStream fis = new FileInputStream("data.bin");
+    private static void fieldSet(Object newObj, String file) {
+        try (FileInputStream fis = new FileInputStream(file);
              DataInputStream dis = new DataInputStream(fis);
         ) {
             Field[] fieldType = newObj.getClass().getDeclaredFields();
@@ -67,24 +68,24 @@ public class AppReflection {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    private static void createObj() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+    private static void deSerialize(String file) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         Class c = Class.forName("ru.enikhov.lesson08.Person");
         Person newTom = (Person) c.newInstance();
         System.out.println("Пустой объект: " + newTom);
-        fieldSet(newTom);
+        fieldSet(newTom, file);
         System.out.println("Новый объект: " + newTom);
     }
 
-    /** метод saveObj записывает в файл поля класс Person
+    /** метод serialize записывает в файл поля класс Person
      * для поля типа List, сначала записывается размер списка (будет использоваться
      * при создании нового объекта),
      * потом значения.
       * @param obj
      */
-    private static void saveObj(Person obj) {
+    private static void serialize(Person obj, String file) {
         Field[] fields = obj.getClass().getDeclaredFields();
         try (
-                FileOutputStream fos = new FileOutputStream("data.bin");
+                FileOutputStream fos = new FileOutputStream(file);
                 DataOutputStream dos = new DataOutputStream(fos)
         ) {
             for (Field field : fields) {
