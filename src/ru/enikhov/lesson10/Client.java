@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.*;
 
 public class Client {
+    public static boolean quit = false;
+
     public static void main(String[] args) {
         String host = "localhost";
 
@@ -25,7 +27,7 @@ public class Client {
 class SenderThread implements Runnable {
     private InetAddress iaServer;
     private DatagramSocket clientSocket;
-    private boolean quit = false;
+
 
     public SenderThread(InetAddress ia) throws SocketException {
         this.iaServer = ia;
@@ -51,7 +53,6 @@ class SenderThread implements Runnable {
         }
     }
 
-
     @Override
     public void run() {
         try {
@@ -61,14 +62,13 @@ class SenderThread implements Runnable {
             while (true) {
                 String clientMessage = br.readLine();
                 if (clientMessage.equals("quit")) {
-                    quit = true;
+                    Client.quit = true;
                     break;
                 }
                 sendMessage(clientMessage);
             }
-            if (quit) {
-//при  закрытии сокета ошибка постоянно. Не понятно как его закрыть правильно.
-//                clientSocket.close();
+            if (Client.quit) {
+                clientSocket.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,14 +86,14 @@ class ReceiverThread implements Runnable {
     @Override
     public void run() {
         byte[] receiveData = new byte[1024];
-        while (true) {
+        while (!Client.quit) {
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
             try {
                 clientSocket.receive(receivePacket);
                 String serverReplay = new String(receivePacket.getData(), 0, receivePacket.getLength());
                 System.out.println("Сервер => " + serverReplay + "\n");
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Клиент покинул чат.");
             }
         }
     }
