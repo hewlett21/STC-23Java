@@ -93,6 +93,7 @@ class ReceiverThread implements Runnable {
                 String serverReplay = new String(receivePacket.getData(), 0, receivePacket.getLength());
                 System.out.println("Сервер => " + serverReplay + "\n");
             } catch (IOException e) {
+                clientSocket.close();
                 System.out.println("Клиент покинул чат.");
             }
         }
