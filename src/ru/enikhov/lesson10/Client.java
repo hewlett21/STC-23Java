@@ -67,6 +67,7 @@ class SenderThread implements Runnable {
                 sendMessage(clientMessage);
             }
             if (quit) {
+//при  закрытии сокета ошибка постоянно. Не понятно как его закрыть правильно.
 //                clientSocket.close();
             }
         } catch (IOException e) {
