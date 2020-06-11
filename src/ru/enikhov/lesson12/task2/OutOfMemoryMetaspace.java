@@ -1,5 +1,6 @@
 package ru.enikhov.lesson12.task2;
 
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -21,9 +22,13 @@ public class OutOfMemoryMetaspace {
                 URL[] urls = new URL[]{new URL(classLoaderJar)};
                 URLClassLoader urlClassLoader = new URLClassLoader(urls);
                 SomeInterface classImpl = new SomeClassImpl();
+                InvocationHandler SomeClassInvoke = (proxy, method, arguments) -> {
+                    System.out.print("Снова и снова ");
+                    return method.invoke(classImpl, arguments);
+                };
                 SomeInterface proxy = (SomeInterface) Proxy.newProxyInstance(urlClassLoader,
                         SomeClassImpl.class.getInterfaces(),
-                        new SomeClassInvoke(classImpl));
+                        SomeClassInvoke);
                 proxy.someMethod(classLoaderJar);
                 iterations++;
                 list.add(proxy);
