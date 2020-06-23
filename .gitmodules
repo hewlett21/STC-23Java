@@ -1,0 +1,3 @@
+[submodule "subrep2/Subrep-STC23"]
+	path = subrep2/Subrep-STC23
+	url = https://github.com/hewlett21/Subrep-STC23.git
